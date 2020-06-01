@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/kaitlynp1206/imageRepo/pkg/server"
@@ -16,7 +17,7 @@ var serverCmd = &cobra.Command{
 	Short: "Start Server",
 	Long:  `Start Server`,
 	Run: func(cmd *cobra.Command, args []string) {
-		s := server.NewServer()
+		s := server.NewServer(context.Background())
 		fmt.Println("Starting")
 		s.Start()
 	},
