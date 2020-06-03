@@ -10,6 +10,7 @@ import (
 
 func init() {
 	rootCmd.AddCommand(serverCmd)
+	serverCmd.Per
 }
 
 var serverCmd = &cobra.Command{

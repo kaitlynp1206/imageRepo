@@ -82,7 +82,7 @@ func (m *UsersManager) AddUserHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Add Image to DB
-	err = m.AddUser(r.Context(), usr.Username, usr.Password)
+	err = m.AddUser(r.Context(), usr.Username)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -114,13 +114,13 @@ func (m *UsersManager) RemoveUserHandler(w http.ResponseWriter, r *http.Request)
 	return
 }
 
-func (m *UsersManager) AddUser(ctx context.Context, name string, password string) error {
+func (m *UsersManager) AddUser(ctx context.Context, name string) error {
 	//TODO: Validate input
-	insForm, err := m.db.Prepare("INSERT INTO users(username, password) VALUES(?,?)")
+	insForm, err := m.db.Prepare("INSERT INTO users(username) VALUES(?)")
 	if err != nil {
 		return err
 	}
-	insForm.Exec(name, password)
+	insForm.Exec(name)
 	//TODO: Return userId
 	return nil
 }
@@ -137,26 +137,26 @@ func (m *UsersManager) DeleteUser(ctx context.Context, usrID int) error {
 }
 
 func (m *UsersManager) GetUserByUserID(ctx context.Context, usrID int) (*User, error) {
-	selDB, err := m.db.Query("SELECT user_id, username, password FROM users WHERE user_id=?", usrID)
+	selDB, err := m.db.Query("SELECT user_id, username FROM users WHERE user_id=?", usrID)
 	if err != nil {
 		return nil, err
 	}
 	var usr User
 	for selDB.Next() {
-		err = selDB.Scan(&usr.UserID, &usr.Username, &usr.Password)
+		err = selDB.Scan(&usr.UserID, &usr.Username)
 	}
 
 	return &usr, nil
 }
 
 func (m *UsersManager) GetUserByUsername(ctx context.Context, username string) (*User, error) {
-	selDB, err := m.db.Query("SELECT user_id, username, password FROM users WHERE username=?", username)
+	selDB, err := m.db.Query("SELECT user_id, username FROM users WHERE username=?", username)
 	if err != nil {
 		return nil, err
 	}
 	var usr User
 	for selDB.Next() {
-		err = selDB.Scan(&usr.UserID, &usr.Username, &usr.Password)
+		err = selDB.Scan(&usr.UserID, &usr.Username)
 	}
 	return &usr, nil
 }
