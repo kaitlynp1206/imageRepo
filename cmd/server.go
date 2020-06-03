@@ -8,10 +8,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func init() {
-	rootCmd.AddCommand(serverCmd)
-	serverCmd.PersistentFlags().StringP()
-}
+//func init() {
+//	rootCmd.AddCommand(serverCmd)
+//	serverCmd.PersistentFlags().StringP()
+//}
 
 var serverCmd = &cobra.Command{
 	Use:   "server",

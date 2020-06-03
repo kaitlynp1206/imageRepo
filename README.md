@@ -6,9 +6,12 @@ An image repository storing images in blob storage buckets. For now, this is bui
 - MySQL
 
 # Assumptions
-This project acts as an internal service and assumes that Auth is handled in a separate service. 
--Assume https (everything is encrypted)
--Assume front end images are encoded in base64 
+This project acts as an internal service and assumes that Auth is handled in a separate service. It assumes use of https (everything is encrypted). It also assumes front end images are encoded in base64 
 
+# How it Works
+- Build the schema: mysql < schema.sql
+- Build and run the application: go build && ./imageRepo server
 
--"GET" image request will return an S3 address -> curl address for image
+# Next steps
+- Complete unit tests & table driven testing
+- Complete implementation of message queue
