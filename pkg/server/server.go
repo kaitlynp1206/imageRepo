@@ -19,7 +19,7 @@ type Server struct {
 }
 
 func NewServer(ctx context.Context) *Server {
-	db, _ := sql.Open("mysql", "imgRepoUser:Pswd1234*@/imageRepo")
+	db, _ := sql.Open(DriverName, DataSourceName)
 	return &Server{
 		mux:        mux.NewRouter().StrictSlash(true),
 		imgManager: image.NewImagesManager(ctx, db),
@@ -49,5 +49,5 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to the home page!")
+	fmt.Fprintf(w, "Welcome to the home page of Image Repo")
 }

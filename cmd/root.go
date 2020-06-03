@@ -9,16 +9,12 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "imageRepo",
-	Short: ":)",
-	Long:  `#TODO :)`,
+	Short: "Image Repository Service",
+	Long:  `Image Repository Service`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Print("HELLO`")
+		fmt.Print("Welcome to the Image Repository Service")
 	},
 }
-
-init(
-	
-)
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {

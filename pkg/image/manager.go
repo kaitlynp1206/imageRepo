@@ -19,7 +19,7 @@ type ImagesManager struct {
 }
 
 func NewImagesManager(ctx context.Context, db *sql.DB) *ImagesManager {
-	b, err := blob.OpenBucket(ctx, "file:///home/kaitlyn/go/src/github.com/kaitlynp1206/imageRepo/etc/blobstore")
+	b, err := blob.OpenBucket(ctx, FileBlobStorage)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -39,7 +39,7 @@ func (m *ImagesManager) ImageHandler(w http.ResponseWriter, r *http.Request) {
 	case "DELETE":
 		m.DeleteImageHandler(w, r)
 	default:
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+		http.Error(w, BadRequestMsg, http.StatusBadRequest)
 	}
 }
 
@@ -73,7 +73,7 @@ func (m *ImagesManager) GetImageHandler(w http.ResponseWriter, r *http.Request) 
 			return
 		}
 	} else {
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+		http.Error(w, BadRequestMsg, http.StatusBadRequest)
 	}
 
 	resp, _ := json.Marshal(img)
@@ -110,7 +110,7 @@ func (m *ImagesManager) AddImageHandler(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	fmt.Fprintf(w, fmt.Sprintf("Successfully added image as %s", path))
+	fmt.Fprintf(w, fmt.Sprintf("Successfully added image under %s", path))
 	return
 }
 
@@ -134,7 +134,7 @@ func (m *ImagesManager) DeleteImageHandler(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	fmt.Fprintf(w, fmt.Sprintf("Successfully removed image %s", imgReq.ImageID))
+	fmt.Fprintf(w, fmt.Sprintf("Successfully removed image under %s", path))
 	return
 }
 

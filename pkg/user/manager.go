@@ -30,7 +30,7 @@ func (m *UsersManager) UserHandler(w http.ResponseWriter, r *http.Request) {
 	case "DELETE":
 		m.RemoveUserHandler(w, r)
 	default:
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+		http.Error(w, BadRequestMsg, http.StatusBadRequest)
 	}
 }
 
@@ -60,7 +60,7 @@ func (m *UsersManager) GetUserHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if user.UserID == 0 {
-		http.Error(w, "User not found", http.StatusBadRequest)
+		http.Error(w, UserNotFoundMsg, http.StatusBadRequest)
 		return
 	}
 

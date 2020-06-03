@@ -10,7 +10,7 @@ import (
 
 func init() {
 	rootCmd.AddCommand(serverCmd)
-	serverCmd.Per
+	serverCmd.PersistentFlags().StringP()
 }
 
 var serverCmd = &cobra.Command{
